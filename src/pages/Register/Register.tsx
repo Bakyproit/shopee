@@ -5,7 +5,8 @@ import Input from 'src/components/Input'
 // import { getRules } from 'src/utils/rule'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema, Schema } from 'src/utils/rule'
-import { registerAccount } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
+
 import { omit } from 'lodash'
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 import { ErrorResponse } from 'src/types/utils.type'
@@ -23,7 +24,7 @@ import path from 'src/constants/path'
 type FormData = Schema
 
 export default function Register() {
-  const { setIsAuthenticated  , setProfile} = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -37,7 +38,7 @@ export default function Register() {
 
   //api
   const registerAccountMution = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
   // const rules = getRules(getValues)
   const onSubmit = handleSubmit((data) => {

@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { Link, useNavigate } from 'react-router-dom'
-import { login } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
@@ -20,9 +20,9 @@ import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 type FormData = Omit<Schema, 'confirm_password'>
 const loginSchema = schema.omit(['confirm_password'])
 export default function Login() {
-  const { setIsAuthenticated , setProfile} = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
-
+  //validate
   const {
     register,
     handleSubmit,
@@ -34,9 +34,8 @@ export default function Login() {
   // const rules = getRules()
   //api
   const loginMution = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => login(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.login(body)
   })
-  // const rules = getRules(getValues)
   const onSubmit = handleSubmit((data) => {
     // console.log('data', data)
     loginMution.mutate(data, {
