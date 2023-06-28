@@ -1,10 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
-import Popover from '../Popover'
-import { useMutation } from 'react-query'
-import authApi from 'src/apis/auth.api'
 import { useContext } from 'react'
-import { AppContext } from 'src/context/app.context'
+import { useMutation } from 'react-query'
+import { Link } from 'react-router-dom'
+import authApi from 'src/apis/auth.api'
 import path from 'src/constants/path'
+import { AppContext } from 'src/context/app.context'
+import Popover from '../Popover'
 
 export default function Header() {
   const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)

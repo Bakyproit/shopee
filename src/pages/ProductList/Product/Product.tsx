@@ -18,19 +18,19 @@ export default function Product({ product }: Props) {
           />
         </div>
         <div className='overflow-hidden p-2'>
-          <div className='min-h-[2rem] text-xs line-clamp-2'>{product.name}</div>
+          <div className='min-h-[2rem] text-sm line-clamp-2'>{product.name}</div>
           <div className='mt-3 flex items-center'>
             <div className='max-w-[50%] truncate text-gray-500 line-through'>
               <span className='text-xs'>đ</span>
-              <span>{formatCurrency(product.price_before_discount)}</span>
+              <span className='text-sm'>{formatCurrency(product.price_before_discount)}</span>
             </div>
             <div className='ml-1 truncate text-orange'>
               <span className='text-xs'>đ</span>
-              <span>{formatCurrency(product.price)}</span>
+              <span className='text-sm'>{formatCurrency(product.price)}</span>
             </div>
           </div>
           <div className='mt-3 flex items-center justify-start'>
-            <ProductRating rating={product.rating}/>
+            <ProductRating rating={product.rating} />
             <div className='ml-2 text-sm'>
               <span>{formatNumberTosocialStyle(product.sold)}</span>
               <span className='ml-1'>Đã bán</span>

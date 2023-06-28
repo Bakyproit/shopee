@@ -1,10 +1,9 @@
-import axios, { AxiosInstance, AxiosError } from 'axios'
+import axios, { AxiosError, AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
+import path from 'src/constants/path'
 import { AuthResponse } from 'src/types/auth.type'
 import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
-import { config } from 'process'
-import path from 'src/constants/path'
 
 class Http {
   instance: AxiosInstance

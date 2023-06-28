@@ -1,12 +1,27 @@
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams } from 'react-router-dom'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
+import { QueryConfig } from '../ProductList'
+import { Category } from 'src/types/category.type'
+import classNames from 'classnames'
 
-export default function AsideFilter() {
+interface Props {
+  queryConfig: QueryConfig
+  categories: Category[]
+}
+
+export default function AsideFilter({ queryConfig, categories }: Props) {
+  const { category } = queryConfig
+  // console.log(category, categories)
   return (
     <div className='py-4'>
-      <Link to={path.home} className='flex items-center font-bold'>
+      <Link
+        to={path.home}
+        className={classNames('flex items-center font-bold', {
+          'text-orange': !category
+        })}
+      >
         <svg viewBox='0 0 12 10' className='mr-3 h-4 w-3 fill-current'>
           <g fillRule='evenodd' stroke='none' strokeWidth={1}>
             <g transform='translate(-373 -208)'>
@@ -24,19 +39,29 @@ export default function AsideFilter() {
       </Link>
       <div className='my-4 h-[1px] bg-gray-300' />
       <ul>
-        <li className='py-2 pl-2'>
-          <Link to={path.home} className='relative px-2 font-semibold text-orange'>
-            <svg viewBox='0 0 4 7' className='absolute left-[-10px] top-1 h-2 w-2 fill-orange'>
-              <polygon points='4 3.5 0 0 0 7' />
-            </svg>
-            Thời trang nam
-          </Link>
-        </li>
-        <li className='py-2 pl-2'>
-          <Link to={path.home} className='relative px-2'>
-            Áo khoác
-          </Link>
-        </li>
+        {categories.map((categoryItem) => (
+          <li className='py-2 pl-2' key={categoryItem._id}>
+            <Link
+              to={{
+                pathname: path.home,
+                search: createSearchParams({
+                  ...queryConfig,
+                  category: categoryItem._id
+                }).toString()
+              }}
+              className={classNames('relative px-2 ', {
+                'font-semibold text-orange': category === categoryItem._id
+              })}
+            >
+              {category === categoryItem._id && (
+                <svg viewBox='0 0 4 7' className='absolute left-[-10px] top-1 h-2 w-2 fill-orange'>
+                  <polygon points='4 3.5 0 0 0 7' />
+                </svg>
+              )}
+              {categoryItem.name}
+            </Link>
+          </li>
+        ))}
       </ul>
       <Link to={path.home} className='mt-4 flex items-center font-bold uppercase'>
         <svg
@@ -68,7 +93,7 @@ export default function AsideFilter() {
               className='grow'
               placeholder='₫ TỪ'
               name='from'
-              classNameInput='p-1 h-8 w-full rounded-sm border text-sm border-gray-300 outline-none focus:border-gray-500 focus:shadow-sm'
+              classNameInput='p-1 h-8 w-full rounded-sm border text-xs border-gray-300 outline-none focus:border-gray-500 focus:shadow-sm'
             />
             <div className='mx-2 mt-2 shrink-0'> - </div>
             <Input
@@ -76,7 +101,7 @@ export default function AsideFilter() {
               className='grow'
               placeholder='₫ ĐẾN'
               name='to'
-              classNameInput='p-1 h-8 w-full rounded-sm border text-sm border-gray-300 outline-none focus:border-gray-500 focus:shadow-sm'
+              classNameInput='p-1 h-8 w-full rounded-sm border text-xs border-gray-300 outline-none focus:border-gray-500 focus:shadow-sm'
             />
           </div>
           <Button className='flex w-full items-center justify-center bg-orange p-2 text-sm uppercase text-white hover:bg-orange/80'>

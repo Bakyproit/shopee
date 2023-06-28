@@ -1,14 +1,14 @@
 /// cau hinh router
+import { useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import ProductList from './pages/ProductList'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import RegisterLayout from './layouts/RegisterLayout'
-import MainLayout from './layouts/MainLayout'
-import { Children, useContext } from 'react'
-import Profile from './pages/Profile'
-import { AppContext } from './context/app.context'
 import path from 'src/constants/path'
+import { AppContext } from './context/app.context'
+import MainLayout from './layouts/MainLayout'
+import RegisterLayout from './layouts/RegisterLayout'
+import Login from './pages/Login'
+import ProductList from './pages/ProductList'
+import Profile from './pages/Profile'
+import Register from './pages/Register'
 // trang thai login
 // const isAuthenticated = false chua login
 
