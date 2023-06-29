@@ -14,12 +14,11 @@ export type QueryConfig = {
 }
 
 export default function ProductList() {
-  //goi api voi react query
   const queryParams: QueryConfig = useQueryParams()
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || '1',
-      limit: queryParams.limit || 15,
+      limit: queryParams.limit || 20,
       sort_by: queryParams.sort_by,
       exclude: queryParams.exclude,
       name: queryParams.name,
@@ -31,6 +30,7 @@ export default function ProductList() {
     },
     isUndefined
   )
+  //goi api react query
   const { data: productsData } = useQuery({
     queryKey: ['product', queryConfig],
     queryFn: () => {
@@ -44,6 +44,7 @@ export default function ProductList() {
       return categoryApi.getCategories()
     }
   })
+
   return (
     <div className='bg-gray-200 py-6'>
       <div className='container'>

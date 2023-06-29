@@ -34,6 +34,7 @@ export default function SortProductList({ pageSize, queryConfig }: Props) {
       ).toString()
     })
   }
+  //filter theo gia
   const handlePriceOrder = (orderValue: Exclude<ProductListConfig['order'], undefined>) => {
     navigate({
       pathname: path.home,
@@ -96,6 +97,7 @@ export default function SortProductList({ pageSize, queryConfig }: Props) {
             </option>
           </select>
         </div>
+
         <div className='flex items-center'>
           <div>
             <span className='text-orange'>{page}</span>
