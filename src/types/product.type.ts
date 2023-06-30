@@ -1,3 +1,13 @@
+
+export interface ProductList {
+  products: Product[]
+  pagination: {
+    page: number
+    limit: number
+    page_size: number
+  }
+}
+
 export interface Product {
   _id: string
   images: string[]
@@ -15,15 +25,6 @@ export interface Product {
   image: string
   createdAt: string
   updatedAt: string
-}
-
-export interface ProductList {
-  products: Product[]
-  pagination: {
-    page: number
-    limit: number
-    page_size: number
-  }
 }
 
 export interface ProductListConfig {

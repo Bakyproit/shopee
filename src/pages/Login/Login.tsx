@@ -13,13 +13,9 @@ import { ErrorResponse } from 'src/types/utils.type'
 import { Schema, schema } from 'src/utils/rule'
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 
-// interface FormData {
-//   email: string
-//   password: string
-// }
-
 type FormData = Pick<Schema, 'email' | 'password'>
 const loginSchema = schema.pick(['email', 'password'])
+
 export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
