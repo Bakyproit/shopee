@@ -19,6 +19,7 @@ export default function Header() {
   const handleLogout = () => {
     logoutMutation.mutate()
   }
+
   return (
     <div className='bg-[linear-gradient(-180deg,#f53d2d,#f63)] pb-5 pt-2 text-white'>
       <div className='container'>

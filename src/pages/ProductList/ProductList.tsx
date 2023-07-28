@@ -18,7 +18,7 @@ export default function ProductList() {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || '1',
-      limit: queryParams.limit || 20,
+      limit: queryParams.limit || 10,
       sort_by: queryParams.sort_by,
       exclude: queryParams.exclude,
       name: queryParams.name,
@@ -38,6 +38,7 @@ export default function ProductList() {
     },
     keepPreviousData: true
   })
+
   const { data: categoriesData } = useQuery({
     queryKey: ['categories'],
     queryFn: () => {

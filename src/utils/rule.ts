@@ -85,16 +85,22 @@ export const schema = yup.object({
     .min(6, 'Độ dài từ 6 - 160 ký tự')
     .max(160, 'Độ dài từ 6 - 160 ký tự')
     .oneOf([yup.ref('password')], 'Nhập lại password không khớp'),
-  price_min: yup.string().test({
-    name: 'price-not-allowed',
-    message: 'Giá không phù hợp',
-    test: testPriceMinMax
-  }),
-  price_max: yup.string().test({
-    name: 'price-not-allowed',
-    message: 'Giá không phù hợp',
-    test: testPriceMinMax
-  })
+  price_min: yup
+    .string()
+    .test({
+      name: 'price-not-allowed',
+      message: 'Giá không phù hợp',
+      test: testPriceMinMax
+    })
+    .required(),
+  price_max: yup
+    .string()
+    .test({
+      name: 'price-not-allowed',
+      message: 'Giá không phù hợp',
+      test: testPriceMinMax
+    })
+    .required()
 })
 
 // const loginSchema = schema.omit(['confirm_password'])

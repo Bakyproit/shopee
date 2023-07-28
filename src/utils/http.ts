@@ -3,11 +3,12 @@ import { toast } from 'react-toastify'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import path from 'src/constants/path'
 import { AuthResponse } from 'src/types/auth.type'
-import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
+import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS, setRefreshTokenToLS } from './auth'
 
 class Http {
   instance: AxiosInstance
   private accessToken: string
+  private refreshToken: string | undefined
   constructor() {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
@@ -35,8 +36,11 @@ class Http {
         const { url } = response.config
         if (url === path.login || url === path.register) {
           const data = response.data as AuthResponse
+          console.log(data)
           this.accessToken = data.data.access_token
+          this.refreshToken = data.data.refresh_token
           setAccessTokenToLS(this.accessToken)
+          setRefreshTokenToLS(this.refreshToken)
           setProfileToLS(data.data.user)
         } else if (url === path.logout) {
           this.accessToken = ''
@@ -44,14 +48,19 @@ class Http {
         }
         return response
       },
-      function (error: AxiosError) {
-        console.log(error)
+      (error: AxiosError) => {
+        console.log('Lỗi ', error)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const data: any | undefined = error.response?.data
         if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const data: any | undefined = error.response?.data
           const message = data.message || error.message
           toast.error(message)
         }
+        if (data.data.name === 'EXPIRED_TOKEN' && error.response?.status === 401) {
+          const message = data.data.message
+          toast.error(message)
+        }
+
         return Promise.reject(error)
       }
     )
