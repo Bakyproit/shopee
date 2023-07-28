@@ -49,13 +49,13 @@ class Http {
         return response
       },
       (error: AxiosError) => {
-        console.log('Lỗi ', error)
+        console.log('Lỗi1 ', error)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const data: any | undefined = error.response?.data
-        if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
-          const message = data.message || error.message
-          toast.error(message)
-        }
+        // if (error.response?.status !== HttpStatusCode.UnprocessableEntity) {
+        //   const message = data.message || error.message
+        //   toast.error(message)
+        // }
         if (data.data.name === 'EXPIRED_TOKEN' && error.response?.status === 401) {
           const message = data.data.message
           toast.error(message)
